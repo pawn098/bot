@@ -58,6 +58,7 @@ async def send_echo(message: Message):
 # Фильтер на стикер
 @dp.message(F.sticker)
 async def send_echo(message: Message):
+    print(message)
     await message.reply_sticker(message.sticker.file_id)
 
 
