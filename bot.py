@@ -23,11 +23,6 @@ async def get_help(message: Message):
 async def get_description(message: Message):
     await message.answer('При отправке команды "/start", бот здоровается\nПри отправки команды "/description" появляется описание бота')
 
-@dp.message()
-async def get_help(message: Message):
-    await message.answer('Это команда /help')
-
-
 async def main():
     await dp.start_polling(bot)
 
