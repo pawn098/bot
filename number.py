@@ -2,8 +2,8 @@ import random
 
 from aiogram import Bot, Dispatcher, F
 from aiogram.enums import ContentType
-from aiogram.filters import Command, CommandStart
-from aiogram.types import Message
+from aiogram.filters import Command, CommandStart, ChatMemberUpdatedFilter, KICKED
+from aiogram.types import Message, ChatMemberUpdated
 from config import TOKEN
 
 
@@ -163,6 +163,11 @@ async def process_other_answers(message: Message):
             'Я довольно ограниченный бот, давайте '
             'просто сыграем в игру?'
         )
+
+# Этот хэндлер будет срабатывать на блокировку бота пользователем
+@dp.my_chat_member(ChatMemberUpdatedFilter(member_status_changed=KICKED))
+async def process_user_blocked_bot(event: ChatMemberUpdated):
+    print(f'Пользователь {event.from_user.id} заблокировал бота')
 
 if __name__ == '__main__':
     dp.run_polling(bot)
