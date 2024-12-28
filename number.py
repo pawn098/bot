@@ -48,6 +48,7 @@ async def process_help_command(message: Message):
         f'а вам нужно его угадать\nУ вас есть {Attempts} '
         'попыток\n\nДоступные команды:\n/help - правила '
         'игры и список команд\n/cancel - выйти из игры\n'
+        '/change - изменить количество попыток\n'
         '/stat - посмотреть статистику\n/ranked -  посмо'
         'треть рейтинг игроков\n\nЕсли хочешь сыграть напиши:\n'
         'да, давай, сыграем, игра, играть, хочу играть'
@@ -85,6 +86,12 @@ async def process_stat_command(message: Message):
     for i in range(len(ranked_list)):
         users_ranked.append(f'{i+1} место: @{ranked_list[i]["name"]} - {ranked_list[i]["wins"]} побед')
     await message.answer('\n'.join(users_ranked))
+
+# Этот хэндлер будет срабатывать на команду "/change"
+@dp.message(Command(commands=['change']))
+async def process_stat_command(message: Message):
+    await message.answer('Какое количество попыток вы хотите?')
+
 
 # Этот хэндлер будет срабатывать на согласие пользователя сыграть в игру
 @dp.message(F.text.lower().in_(['да', 'давай', 'сыграем', 'игра',
